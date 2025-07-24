@@ -1,4 +1,4 @@
-#include "library.h"
+#include "../include/SimpleECS.h"
 
 #include <iostream>
 
