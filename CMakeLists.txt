@@ -12,6 +12,7 @@ add_library(Simple_ECS SHARED
         include/ComponentManager.h
         include/System.h
         include/SystemManager.h
+        include/ComponentController.h
 )
 
 target_include_directories(Simple_ECS PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

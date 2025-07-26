@@ -41,7 +41,7 @@ public:
 	{
 		for (auto const& pair : mSystems)
 		{
-			auto const& system = pair.second
+			auto const& system = pair.second;
 
 			system->mEntities.erase(entity);
 		}
