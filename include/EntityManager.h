@@ -4,6 +4,7 @@
 
 #ifndef ENTITYMANAGER_H
 #define ENTITYMANAGER_H
+#include <cassert>
 #include <queue>
 
 #include "Types.h"
@@ -19,13 +20,38 @@ public:
 		}
 	}
 
-	Entity CreateEntity();
+	Entity CreateEntity()
+	{
+		assert(mEntityCount < MAX_ENTITIES && "Entity amount exceeding limit");
 
-	void DestroyEntity(Entity entity);
+		Entity id = mAvailableEntities.front();
+		mAvailableEntities.pop();
+		++mEntityCount;
+		return id;
+	}
 
-	void SetSignature(Entity entity, Signature signature);
+	void DestroyEntity(Entity entity)
+	{
+		assert(entity < MAX_ENTITIES && "Entity outside max index range");
 
-	Signature GetSignature(Entity entity) const;
+		mSignatures[entity].reset();
+
+		mAvailableEntities.push(entity);
+	}
+
+	void SetSignature(Entity entity, Signature signature)
+	{
+		assert(entity < MAX_ENTITIES && "Entity outside max index range");
+
+		mSignatures[entity] = signature;
+	}
+
+	Signature GetSignature(Entity entity) const
+	{
+		assert(entity < MAX_ENTITIES && "Entity outside max index range");
+
+		return mSignatures[entity];
+	}
 
 private:
 	std::queue<Entity> mAvailableEntities;

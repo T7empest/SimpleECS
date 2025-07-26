@@ -3,9 +3,15 @@ project(Simple_ECS)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_library(Simple_ECS SHARED src/SimpleECS.cpp
+# Build as a shared library (dynamic)
+add_library(Simple_ECS SHARED
+        include/SimpleECS.cpp
         include/Types.h
-        src/EntityManager.cpp
         include/EntityManager.h
-        src/ComponentArray.cpp
-        include/ComponentArray.h)
+        include/ComponentArray.h
+        include/ComponentManager.h
+        include/System.h
+        include/SystemManager.h
+)
+
+target_include_directories(Simple_ECS PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
